@@ -1,0 +1,80 @@
+CREATE table menu
+(
+	m_no int primary key,
+	m_group varchar2(10),
+	m_name varchar(30),
+	m_price int NOT NULL
+);
+
+CREATE table "user"
+(
+	u_no int primary key,
+	u_id varchar2(20),
+	u_pw varchar2(4),
+	u_name varchar2(30),
+	u_bd varchar2(14),
+	u_point int NOT NULL,
+	u_grade varchar(10)
+);
+
+CREATE table orderlist
+(
+	o_no int primary key not null,
+	o_date date,
+	u_no int not null,
+	m_no int not null,
+	o_group varchar2(30),
+	o_price int not null,
+	o_amount int not null,
+	foreign key(u_no) references "user"(u_no) on delete cascade,
+	foreign key(m_no) references menu(m_no) on delete cascade
+);
+
+CREATE table orderlist
+(
+	o_no int primary key not null,
+	o_date date,
+	u_no int not null references "user"(u_no),
+	m_no int not null references menu(m_no),
+	o_group varchar2(30),
+	o_price int not null,
+	o_amount int not null,	
+	
+);
+
+CREATE table shopping
+(
+	s_no int primary key not null,
+	m_no int not null references menu(m_no),
+	s_price int not null,
+	s_count int not null,
+	s_size varchar2(30),
+	s_amount int not null 
+);
+
+insert all
+into menu values(1, '음료','바닐라라떼',5000)
+into menu values(2, '푸드','샌드위치',7000)
+into menu values(3, '상품','컵',17000)
+select *
+from dual;
+
+insert into menu(m_no,m_group,m_name,m_price)
+select 4,'음료','콜드브루',6000
+from dual union all
+select 5,'상품','텀블러',30000
+from dual union all
+select 6,'푸드','케익',8000
+from dual;
+
+update menu
+set m_price = 5000
+where m_name = '샌드위치';
+
+update menu
+set m_name = '고구마라떼'
+where m_name = '바닐라라떼';
+
+update menu
+set  m_name = '초코라떼'
+where m_name like '%라떼';

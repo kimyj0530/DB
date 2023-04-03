@@ -1,0 +1,96 @@
+create table NewBook(
+	bookid number,
+	bookname varchar2(20),
+	publisher varchar2(20),
+	price number,
+	primary key (bookid)
+);
+
+create table NewBook(
+	bookid number,
+	bookname varchar2(20) not null,
+	publisher varchar2(20) unique,
+	price number default 10000 check( price > 1000),
+	primary key (bookname, publisher)
+);
+
+create table NewCustomer(
+	custid number primary key,
+	name varchar2(40),
+	address varchar2(40),
+	phone varchar2(30)
+);
+
+create table Neworder(
+	orderid number primary key,
+	custid number not null,
+	bookid number not null,
+	saleprice number,
+	orderdate date,
+	foreign key(custid) references NewCustomer(custid) on delete cascade
+);
+
+----------------------------------------------------------------------------------------------------------------------
+
+create table patient(
+	p_no number Primary key not null, 
+	p_name varchar2(10),
+	p_id varchar2(15),
+	p_pw varchar2(10),
+	p_bd date
+);
+// AI : auto increment
+
+create table doctor(
+	d_no number Primary key not null, 
+	d_section varchar2(10),
+	d_name varchar2(15),
+	d_day varchar2(1),
+	d_time varchar2(2)
+);
+
+create table examination(
+	e_no number primary key not null,
+	e_name varchar2(10)
+);
+
+create table reservation(
+	r_no number primary key not null,
+	p_no number,
+	d_no number,
+	r_section varchar2(10),
+	r_date varchar2(14),
+	r_time varchar2(10),
+	e_no number,
+	foreign key(p_no) references patient(p_no),
+	foreign key(d_no) references doctor(d_no),
+	foreign key(e_no) references examination(e_no)
+);
+
+create table sickroom(
+	s_no number primary key not null,
+	s_people number,
+	s_room number,
+	s_roomno varchar2(20)
+);
+
+create table hospitalization(
+	h_no number primary key not null,
+	p_no number,
+	s_no number,
+	h_bedno number,
+	h_sday varchar2(14),
+	h_fday varchar2(14),
+	h_meal number,
+	h_amount number,
+	foreign key(p_no) references patient(p_no),
+	foreign key(s_no) references sickroom(s_no)
+);
+
+-----------------------------------------------------------------------------------------------------------------
+
+alter table patient modify p_pw number;
+
+alter table doctor drop column d_day;
+
+alter table examination modify e_name varchar2(10) not null;

@@ -1,0 +1,58 @@
+create table emp(	
+	emp_no number primary key,
+	emp_name varchar2(30),
+	dept_no number
+);
+
+create table dept(
+	dept_no number primary key,
+	dept_name varchar2(30)
+);
+
+insert all
+into emp values(201, '차수민', 20)
+into  emp values(202, '장종선', 20)
+into  emp values(203, '김상화', 20)
+into  emp values(204, '강은수', 20)
+into  emp values(500, '최병준', null)
+into  emp values(301, '박제현', 30)
+into  emp values(302, '박민하', 30)
+into  emp values(501, '김기태', null)
+select *
+from dual;
+
+insert all
+into dept values(10, '1학년부')
+into dept values(20, '2학년부')
+into dept values(30, '3학년부')
+select *
+from dual;
+
+SELECT emp.emp_no, emp.emp_name, dept.dept_no, dept.dept_name
+FROM emp
+INNER JOIN dept
+ON emp.dept_no = dept.dept_no;
+
+SELECT emp.emp_no, emp.emp_name, dept.dept_no, dept.dept_name
+FROM emp
+JOIN dept
+ON emp.dept_no = dept.dept_no;
+
+select *
+from emp natural join dept;
+
+SELECT emp.emp_no, emp.emp_name, dept.dept_name
+FROM emp
+LEFT JOIN dept
+ON emp.dept_no = dept.dept_no;
+
+SELECT emp.emp_no, emp.emp_name, dept.dept_name
+FROM emp
+RIGHT JOIN dept
+ON emp.dept_no = dept.dept_no;
+
+SELECT emp.emp_no, emp.emp_name, dept.dept_name
+FROM emp
+FULL OUTER JOIN dept
+ON emp.dept_no = dept.dept_no;
+
